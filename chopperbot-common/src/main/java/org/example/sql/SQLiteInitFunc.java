@@ -21,7 +21,7 @@ import java.util.concurrent.locks.ReentrantLock;
 @Component
 public class SQLiteInitFunc implements SQLInitFunc {
 
-    @Value("${spring.datasource.url}")
+    @Value("${spring.datasource.url:jdbc:sqlite:database.db}")
     private String sqlPath;
 
     private String getPath(){

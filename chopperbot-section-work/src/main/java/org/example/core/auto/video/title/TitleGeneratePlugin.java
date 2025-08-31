@@ -28,7 +28,7 @@ public class TitleGeneratePlugin extends AbstractGeneratePlugin<TitleGenerator> 
     @Resource
     Map<String, TitleGenerator> titleGeneratorMap;
 
-    @Value("${chopperbot.plugin.title-generate-plugin.handler}")
+    @Value("${chopperbot.plugin.title-generate-plugin.handler:GptTitleGenerator}")
     private String configType;
     @Override
     public boolean init() {

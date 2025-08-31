@@ -16,7 +16,7 @@ public class LabelGeneratePlugin extends AbstractGeneratePlugin<LabelGenerator> 
     @Resource
     Map<String, LabelGenerator> labelGeneratorMap;
 
-    @Value("${chopperbot.plugin.label-generate-plugin.handler}")
+    @Value("${chopperbot.plugin.label-generate-plugin.handler:CommonLabelGenerator}")
     private String configType;
     @Override
     public boolean init() {

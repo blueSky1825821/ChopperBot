@@ -16,13 +16,13 @@ import java.net.Proxy;
 @Configuration
 public class HttpProxy {
 
-    @Value("${chopperbot.proxy.enable}")
+    @Value("${chopperbot.proxy.enable:0}")
     private int enable;
 
-    @Value("${chopperbot.proxy.address}")
+    @Value("${chopperbot.proxy.address:}")
     private String address;
 
-    @Value("${chopperbot.proxy.port}")
+    @Value("${chopperbot.proxy.port:0}")
     private int port;
 
 
