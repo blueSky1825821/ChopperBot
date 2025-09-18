@@ -5,26 +5,19 @@ package org.example.core.recommend;
  * @date 2023/07/22 23:20
  **/
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 import org.example.bean.HotModule;
 import org.example.bean.Live;
-import org.example.cache.FileCacheManagerInstance;
 import org.example.bean.FollowDog;
-import org.example.config.HotModuleConfig;
 import org.example.bean.HotModuleSetting;
 import org.example.constpool.ConstGroup;
 import org.example.constpool.ConstPool;
 import org.example.constpool.PluginName;
 import org.example.core.HotModuleDataCenter;
-import org.example.core.guard.HotModuleGuard;
 import org.example.core.manager.CreeperGroupCenter;
 import org.example.core.taskcenter.request.ReptileRequest;
 import org.example.init.InitPluginRegister;
-import org.example.mapper.FocusLiverMapper;
 import org.example.mapper.FollowDogMapper;
-import org.example.plugin.CommonPlugin;
 import org.example.core.taskcenter.TaskCenter;
 import org.example.plugin.SpringBootPlugin;
 import org.example.service.FollowDogService;

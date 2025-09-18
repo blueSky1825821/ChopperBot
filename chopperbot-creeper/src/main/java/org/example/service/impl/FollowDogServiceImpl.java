@@ -1,12 +1,9 @@
 package org.example.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.example.bean.FocusLiver;
 import org.example.bean.FollowDog;
 import org.example.mapper.FocusLiverMapper;
 import org.example.mapper.FollowDogMapper;
-import org.example.service.FocusLiverService;
 import org.example.service.FollowDogService;
 import org.springframework.stereotype.Service;
 

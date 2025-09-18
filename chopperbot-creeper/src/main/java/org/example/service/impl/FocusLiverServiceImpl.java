@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.example.bean.FocusLiver;
 import org.example.mapper.FocusLiverMapper;
 import org.example.service.FocusLiverService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -24,6 +23,11 @@ public class FocusLiverServiceImpl extends ServiceImpl<FocusLiverMapper,FocusLiv
     @Override
     public List<FocusLiver> getFocusLivers() {
         return query().list();
+    }
+
+    @Override
+    public List<FocusLiver> getFocusLivers(String platform) {
+        return query().eq("platform", platform).list();
     }
 
     @Override
@@ -51,5 +55,10 @@ public class FocusLiverServiceImpl extends ServiceImpl<FocusLiverMapper,FocusLiv
 
     public boolean hasLivers(String liver,String roomId){
         return query().eq("liver",liver).eq("room_id",roomId).count()==1;
+    }
+
+    @Override
+    public boolean updateLivers(FocusLiver liver) {
+        return update().update(liver);
     }
 }

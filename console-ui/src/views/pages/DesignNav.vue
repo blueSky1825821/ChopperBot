@@ -110,7 +110,7 @@
 
 <script setup lang="ts">
 import { useDisplay } from "vuetify";
-import sitesData from "@data/sites.json";
+import sitesData from "src/data/sites.json";
 import { useWindowScroll } from "@vueuse/core";
 const { name } = useDisplay();
 

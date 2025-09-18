@@ -1,19 +1,31 @@
 package org.example.core.creeper.loadconfig;
 
-import lombok.Data;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import lombok.Getter;
+import lombok.Setter;
+import org.example.bean.FocusLiver;
 import org.example.constpool.ConstGroup;
 import org.example.constpool.ConstPool;
 import org.example.core.creeper.loadtask.DouyinLiveOnlineLoadTask;
 import org.example.core.manager.Creeper;
+import org.example.log.ChopperLogFactory;
+import org.example.log.LoggerType;
+import org.example.service.FocusLiverService;
+import org.example.util.SpringBeanUtils;
+import org.slf4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author dhx
  * @date 2024/5/19 15:33
  */
-@Data
+@Getter
+@Setter
 @Creeper(creeperName = "抖音直播爬虫",
         loadTask = DouyinLiveOnlineLoadTask.class,
         creeperDescription = "抖音直播爬取(包含监控器)",
@@ -22,6 +34,9 @@ import java.util.Map;
         platform = ConstPool.DOUYIN
 )
 public class DouyinLiveOnlineConfig extends LoadLiveConfig {
+    private static final Logger LOGGER = ChopperLogFactory.getLogger(LoggerType.LiveRecord);
+    private String cookieStr;
+
     public DouyinLiveOnlineConfig(String roomId, String videoPath, String videoName,int clarity) {
         super(roomId, videoPath, videoName, false);
         this.platform = ConstPool.PLATFORM.DOUYIN.getName();
@@ -41,15 +56,22 @@ public class DouyinLiveOnlineConfig extends LoadLiveConfig {
     }
 
     private void setHeader(){
-        this.url = "https://live.douyin.com/webcast/room/web/enter/?aid=6383&app_name=douyin_web&live_id=1&device_platform=web&language=zh-CN&enter_from=web_live&cookie_enabled=true&screen_width=1728&screen_height=1117&browser_language=zh-CN&browser_platform=MacIntel&browser_name=Chrome&browser_version=116.0.0.0&web_rid=";
-        this.UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36";
+        FocusLiverService focusLiverService = SpringBeanUtils.getBean(FocusLiverService.class);
+        QueryWrapper<FocusLiver> query = new QueryWrapper<>();
+        query.eq("room_id_str", roomId);//直播间id 非房间号
+        FocusLiver focusLiver = focusLiverService.getOne(query);
+        if (Objects.isNull(focusLiver)) {
+            LOGGER.warn("未找到该主播信息");
+            return;
+        }
+        JSONObject extJson = JSON.parseObject(focusLiver.getExt());
+        setUrl(extJson.getString("enterUrl"));
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Cookie", extJson.getString("Cookie"));
+        headers.put("User-Agent", extJson.getString("User-Agent"));
+        setHeader(headers);
+
         this.Origin = "https://live.douyin.com";
         this.Referer = "https://live.douyin.com";
-        Map<String,String> dyHeader = new HashMap<>();
-        dyHeader.put("Upgrade-Insecure-Requests","1");
-        dyHeader.put("Accept","*/*");
-        dyHeader.put("Host","live.douyin.com");
-        dyHeader.put("Connection","keep-alive");
-        this.header = dyHeader;
     }
 }

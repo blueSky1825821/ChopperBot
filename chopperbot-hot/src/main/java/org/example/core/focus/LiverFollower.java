@@ -14,6 +14,7 @@ import org.example.core.taskcenter.request.ReptileRequest;
 import org.example.init.InitPluginRegister;
 import org.example.mapper.FocusLiverMapper;
 import org.example.plugin.SpringBootPlugin;
+import org.example.service.AccountCookieService;
 import org.example.service.FocusLiverService;
 import org.example.sql.annotation.SQLInit;
 import org.example.thread.NamedThreadFactory;
@@ -21,8 +22,14 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Genius
@@ -33,6 +40,8 @@ public class LiverFollower extends SpringBootPlugin{
 
     @Resource
     private FocusLiverService service;
+    @Resource
+    private AccountCookieService accountCookieService;
 
     private boolean focusLive = true;
 
@@ -85,9 +94,9 @@ public class LiverFollower extends SpringBootPlugin{
         assert plugin != null;
         LoadTask loadTask = plugin.getLoadTask(groupName, liver);
         if(loadTask!=null){
-            ScheduledFuture<?> schedule = focusPool.scheduleWithFixedDelay(new FollowerEyes(loadTask, platform, liver.getLiver()),0,
-                    checkTime, TimeUnit.MILLISECONDS);
-            focusFuture.put(liver.getLiver(),schedule);
+            ScheduledFuture<?> schedule = focusPool.scheduleWithFixedDelay(new FollowerEyes(loadTask, platform,
+                    liver.getLiver()), 0, checkTime, TimeUnit.MILLISECONDS);
+            focusFuture.put(liver.getLiver(), schedule);
             this.info(String.format("eyes on the liver:%s", liver.getLiver()));
         }else{
             error(String.format("cant found platform:%s %s creeper",platform,groupName));
@@ -173,6 +182,8 @@ public class LiverFollower extends SpringBootPlugin{
             "\t\"tag\"\tTEXT,\n" +
             "\t\"avatar\"\tTEXT,\n" +
             "\t\"is_auto\"\tINTEGER NOT NULL DEFAULT 1,\n" +
+            "\t\"ext\"\tTEXT,\n" +
+            "\t\"update_time\"\tDATETIME,\n" +
             "\tPRIMARY KEY(\"id\" AUTOINCREMENT)\n" +
             ")",mapper = FocusLiverMapper.class)
     public List<FocusLiver> sqlInit() {

@@ -1,9 +1,7 @@
 package org.example.core.creeper.builder;
 
 import org.example.bean.FocusLiver;
-import org.example.bean.live.BiliBiliLive;
 import org.example.bean.live.HuyaLive;
-import org.example.core.creeper.loadconfig.BilibiliLiverCheckerConfig;
 import org.example.core.creeper.loadconfig.HuyaLiverCheckerConfig;
 import org.example.core.manager.CommonLoadConfigBuilder;
 import org.springframework.stereotype.Component;

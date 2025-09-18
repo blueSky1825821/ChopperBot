@@ -55,6 +55,7 @@ public class Guard<T extends HotModuleLoadTask> implements Runnable, ResultLogge
                     HotModuleGuard plugin = InitPluginRegister.getPlugin(PluginName.HOT_GUARD_PLUGIN, HotModuleGuard.class);
                     assert plugin != null;
                     plugin.unActiveGuard(this.guardName);
+                    break;
                 }
             }
         }

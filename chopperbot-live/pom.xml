@@ -26,7 +26,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.26</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/us.codecraft/webmagic-core -->
@@ -96,7 +95,7 @@
 
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-devtools-v115</artifactId>
+            <artifactId>selenium-devtools-v139</artifactId>
         </dependency>
 
         <dependency>

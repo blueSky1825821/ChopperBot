@@ -16,7 +16,8 @@ import org.example.core.manager.Creeper;
         creeperDescription = "斗鱼的热门模块爬虫",
         priority = 10,
         group = ConstGroup.HOT_MODULE,
-        platform = ConstPool.DOUYU
+        platform = ConstPool.DOUYU,
+        discard = true
 )
 public class DouyuHotModuleConfig extends LoadHotModuleConfig {
     public DouyuHotModuleConfig() {

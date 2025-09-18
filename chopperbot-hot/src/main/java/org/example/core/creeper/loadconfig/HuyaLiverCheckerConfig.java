@@ -1,6 +1,8 @@
 package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.example.constpool.ConstGroup;
 import org.example.constpool.ConstPool;
 import org.example.core.creeper.loadtask.HuyaLiverCheckerLoadTask;
@@ -12,13 +14,15 @@ import org.example.core.manager.Creeper;
  * @date 2023/10/16 23:01
  **/
 
-@Data
+@Getter
+@Setter
 @Creeper(creeperName = "虎牙直播检测爬虫",
         loadTask = HuyaLiverCheckerLoadTask.class,
         creeperDescription = "用于检测虎牙主播是否开播，并且获取直播详细信息",
         priority = 10,
         group = ConstGroup.LIVER_CHECKER,
-        platform = ConstPool.HUYA
+        platform = ConstPool.HUYA,
+        discard = true
 )
 public class HuyaLiverCheckerConfig extends LoadConfig {
 

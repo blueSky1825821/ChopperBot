@@ -14,20 +14,21 @@ import org.example.core.manager.Creeper;
         creeperDescription = "爬取B站当前热门直播，按人气排行",
         priority = 10,
         group = ConstGroup.HOT_LIVE,
-        platform = ConstPool.BILIBILI
+        platform = ConstPool.BILIBILI,
+        discard = true
 )
 public class BilibiliHotLiveConfig extends LoadHotModuleConfig{
 
 
     public BilibiliHotLiveConfig() {
-//        this.url = "https://api.live.bilibili.com/xlive/web-interface/v1/second/getListByArea?sort=online&page=1&page_size=100&platform=web";
-        this.url = "https://api.live.bilibili.com/room/v1/Area/getList";
+        this.url = "https://api.live.bilibili.com/xlive/web-interface/v1/second/getListByArea?sort=online&page=1&page_size=100&platform=web";
+//        this.url = "https://api.live.bilibili.com/room/v1/Area/getList";
     }
 
     public BilibiliHotLiveConfig(String parent_area_id,String area_id,int page){
-//        this.url = String.format("https://api.live.bilibili.com/xlive/web-interface/v1/second/getList?" +
-//                "platform=web&parent_area_id=%s&area_id=%s&page=%s",parent_area_id,area_id,page);
         this.url = String.format("https://api.live.bilibili.com/xlive/web-interface/v1/second/getList?" +
                 "platform=web&parent_area_id=%s&area_id=%s&page=%s",parent_area_id,area_id,page);
+//        this.url = String.format("https://api.live.bilibili.com/xlive/web-interface/v1/second/getList?" +
+//                "platform=web&parent_area_id=%s&area_id=%s&page=%s",parent_area_id,area_id,page);
     }
 }

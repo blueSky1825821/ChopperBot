@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -28,13 +29,13 @@ public class DouyinVideoPublisher implements PlatformVideoPublisher {
     @Override
     public void publishVideo(VideoToPublish video) {
         try {
-            System.setProperty("webdriver.chrome.driver", "D:\\downLoad\\chromedriver_win32\\chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", "D:\\Program Files\\chromedriver-win64\\chromedriver.exe");
             ChromeOptions options = new ChromeOptions();
-            options.setBinary("C:\\Program Files (x86)\\Chromebrowser\\Chrome.exe");
+            options.setBinary("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe");
             ChromeDriver webDriver = new ChromeDriver(options);
             String url = "https://www.douyin.com/";
             webDriver.get(url);
-            webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
             webDriver.manage().deleteAllCookies();
             String cookies = video.getCookies().substring(1, video.getCookies().length() - 1);
             String[] split = cookies.split(", ");
@@ -49,13 +50,13 @@ public class DouyinVideoPublisher implements PlatformVideoPublisher {
                 Cookie cookie = new Cookie(map.get("name"), map.get("value"), map.get("path"), null);
                 cookies1.add(cookie);
             }
-            webDriver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+            webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
             webDriver.manage().deleteAllCookies();
             for (Cookie cookie : cookies1) {
                 webDriver.manage().addCookie(cookie);
             }
             Thread.sleep(2000L);
-            WebDriverWait wait = new WebDriverWait(webDriver, 10);
+            WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
             WebElement user = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/div[1]/div[4]/div[1]/div/div[1]/header/div/div/div[2]/div/div/div[5]/div/a")));
             user.click();
             WebElement videoPage = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("")));

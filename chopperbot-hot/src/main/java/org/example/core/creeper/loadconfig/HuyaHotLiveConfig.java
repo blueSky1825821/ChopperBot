@@ -15,7 +15,8 @@ import org.example.core.manager.Creeper;
         creeperDescription = "获取虎牙的热门直播，按照人气排行，也可以获取热门模块下的直播",
         priority = 10,
         group = ConstGroup.HOT_LIVE,
-        platform = ConstPool.HUYA
+        platform = ConstPool.HUYA,
+        discard = true
 )
 public class HuyaHotLiveConfig extends LoadHotModuleConfig{
 

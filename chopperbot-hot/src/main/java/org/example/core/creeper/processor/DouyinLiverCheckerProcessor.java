@@ -18,30 +18,35 @@ public class DouyinLiverCheckerProcessor extends AbstractProcessor {
 
     @Override
     public void process(Page page) {
-        System.out.println(page.getHeaders());
-        JSONObject live = JSON.parseObject(page.getRawText());
-        DouyinLive douyinLive = null;
-        if (live!=null) {
-            JSONObject liveInfo = live.getJSONObject("data").getJSONArray("data").getJSONObject(0);
-            JSONObject userInfo = live.getJSONObject("data").getJSONObject("user");
-            String room_name = liveInfo.getString("title");
-            String room_id = page.getRequest().getHeaders().get("rid");
-            String pic_url = liveInfo.getJSONObject("cover").getJSONArray("url_list").getString(0);
-            String owner_uid = userInfo.getString("sec_uid");
-            String nickname = userInfo.getString("nickname");
-            Long show_time = live.getJSONObject("extra").getLong("now");
-            String description = "";
-            Integer moduleId = Integer.valueOf(live.getJSONObject("data").getJSONObject("partition_road_map").getJSONObject("partition").getString("id_str"));
-            String moduleName = live.getJSONObject("data").getJSONObject("partition_road_map").getJSONObject("partition").getString("title");
-            try {
-                HotModule module = HotModuleDataCenter.DataCenter().getModuleById(ConstPool.DOUYIN,String.valueOf(moduleId));
-                moduleName = module==null?"未知模块":module.getTagName();
-            }catch (Exception e){
-                throw new RuntimeException(e);
+        try {
+            System.out.println(page.getHeaders());
+            JSONObject live = JSON.parseObject(page.getRawText());
+            DouyinLive douyinLive = null;
+            if (live!=null) {
+                JSONObject liveInfo = live.getJSONObject("data").getJSONArray("data").getJSONObject(0);
+                JSONObject userInfo = live.getJSONObject("data").getJSONObject("user");
+                String room_name = liveInfo.getString("title");
+                String room_id_str = liveInfo.getString("id_str");
+                String pic_url = liveInfo.getJSONObject("cover").getJSONArray("url_list").getString(0);
+                String owner_uid = userInfo.getString("sec_uid");
+                String nickname = userInfo.getString("nickname");
+                Long show_time = live.getJSONObject("extra").getLong("now");
+                String description = "";
+//            Integer moduleId = Integer.valueOf(live.getJSONObject("data").getJSONObject("partition_road_map").getJSONObject("partition").getString("id_str"));
+//            String moduleName = live.getJSONObject("data").getJSONObject("partition_road_map").getJSONObject("partition").getString("title");
+//            try {
+//                HotModule module = HotModuleDataCenter.DataCenter().getModuleById(ConstPool.DOUYIN,String.valueOf(moduleId));
+//                moduleName = module==null?"未知模块":module.getTagName();
+//            }catch (Exception e){
+//                throw new RuntimeException(e);
+//            }
+                douyinLive = new DouyinLive(0,room_id_str,room_name,nickname,description,pic_url,owner_uid,null,null);
+                douyinLive.setShowTime(TimeUtil.getFormatDate(show_time));
             }
-            douyinLive = new DouyinLive(0,room_id,room_name,nickname,description,pic_url,owner_uid,String.valueOf(moduleId),moduleName);
-            douyinLive.setShowTime(TimeUtil.getFormatDate(show_time));
+            page.putField("data",douyinLive);
+        } catch (Exception e) {
+            System.err.println("获取直播失败");
         }
-        page.putField("data",douyinLive);
+
     }
 }

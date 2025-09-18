@@ -1,5 +1,7 @@
 package org.example.pojo;
 
+import java.util.Objects;
+
 /**
  * @Description
  * @Author welsir
@@ -7,24 +9,24 @@ package org.example.pojo;
  */
 public enum PlatformType {
 
-    BILIBILI(1),
-    DOUYIN(2);
-    private final int index;
+    BILIBILI("1"),
+    DOUYIN("2");
+    private final String index;
 
-    public int getId() {
+    public String getId() {
         return index;
     }
 
-    public static PlatformType getPlatform(int id) {
+    public static PlatformType getPlatform(String id) {
         for (PlatformType platform : values()) {
-            if (platform.index == id) {
+            if (Objects.equals(platform.index, id)) {
                 return platform;
             }
         }
         throw new IllegalArgumentException("Invalid platform id: " + id);
     }
 
-    PlatformType(int index){
+    PlatformType(String index){
         this.index = index;
     }
 

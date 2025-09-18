@@ -1,6 +1,8 @@
 package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.example.constpool.ConstGroup;
 import org.example.constpool.ConstPool;
 import org.example.constpool.CreeperModuleConstPool;
@@ -13,7 +15,8 @@ import org.example.core.manager.Creeper;
  * @author 燧枫
  * @date 2023/4/23 17:59
 */
-@Data
+@Getter
+@Setter
 @Creeper(creeperName = "B站直播弹幕爬虫",
         loadTask = BilibiliLiveBarrageLoadTask.class,
         creeperDescription = "爬取B站的直播弹幕内容(WebMagic爬虫，包含监控器)",

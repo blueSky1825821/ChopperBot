@@ -9,6 +9,7 @@ import org.example.pojo.PacketSectionVideo;
 import org.example.pojo.VideoTemp;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @Description
+ * @Description todo 定义成插件
  * @Author welsir
  * @Date 2024/5/17 15:05
  */
@@ -34,7 +35,8 @@ public class PostWorkerManager extends SpringBootPlugin {
     VideoPushChannelGuard videoStorehouse;
     @Resource
     VideoTemporaryMapper mapper;
-    @Override
+//    @Override
+    @PostConstruct
     public boolean init() {
         startProcess();
         return super.init();
@@ -70,7 +72,7 @@ public class PostWorkerManager extends SpringBootPlugin {
                 saveToLocal();
             }
         };
-        timer.scheduleAtFixedRate(task,0,2000);
+        timer.scheduleAtFixedRate(task,0,60000);
     }
 
     public void saveToLocal(){

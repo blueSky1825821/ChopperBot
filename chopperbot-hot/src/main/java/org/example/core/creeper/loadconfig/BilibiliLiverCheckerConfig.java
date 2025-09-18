@@ -1,6 +1,8 @@
 package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.example.constpool.ConstGroup;
 import org.example.constpool.ConstPool;
 import org.example.core.creeper.loadtask.BilibiliLiverCheckerLoadTask;
@@ -14,7 +16,8 @@ import java.util.HashMap;
  * @author Genius
  * @date 2023/09/10 01:03
  **/
-@Data
+@Getter
+@Setter
 @Creeper(creeperName = "B站直播检测爬虫",
         loadTask = BilibiliLiverCheckerLoadTask.class,
         creeperDescription = "用于检测B站主播是否开播，并且获取直播详细信息",

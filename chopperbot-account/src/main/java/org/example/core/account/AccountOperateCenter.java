@@ -13,11 +13,11 @@ import java.util.List;
  */
 public interface AccountOperateCenter {
 
-    void insertAccount(int platformId,String username);
+    void insertAccount(String platformId,String username);
 
     List<AccountVO> getAllUsers();
 
-    List<AccountVO> getAllUsers(int id);
+    List<AccountVO> getAllUsers(String id);
 
     void deleteAccount(int uid);
 

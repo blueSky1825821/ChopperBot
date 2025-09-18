@@ -1,6 +1,8 @@
 package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.example.constpool.ConstGroup;
 import org.example.constpool.ConstPool;
 import org.example.core.creeper.loadtask.HuyaLiveOnlineLoadTask;
@@ -10,13 +12,15 @@ import org.example.core.manager.Creeper;
  * @author dhx
  * @date 2023/10/9 19:41
  */
-@Data
+@Getter
+@Setter
 @Creeper(creeperName = "虎牙直播爬虫",
         loadTask = HuyaLiveOnlineLoadTask.class,
         creeperDescription = "虎牙直播爬取(包含监控器)",
         priority = 10,
         group = ConstGroup.LIVE_ONLINE,
-        platform = ConstPool.HUYA
+        platform = ConstPool.HUYA,
+        discard = true
 )
 public class HuyaLiveOnlineConfig extends LoadLiveConfig{
     public HuyaLiveOnlineConfig(String roomId, String videoPath, String videoName) {

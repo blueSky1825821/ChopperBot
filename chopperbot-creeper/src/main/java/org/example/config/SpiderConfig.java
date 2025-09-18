@@ -2,6 +2,7 @@ package org.example.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.example.constpool.ConstCreeper;
 
 /**
  * @author Genius
@@ -19,11 +20,11 @@ public class SpiderConfig {
     private int sleepTime;
 
     public SpiderConfig() {
-        userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48";
+        userAgent = ConstCreeper.USER_AGENT;
         retryTimes = 3;
-        retrySleepTime = 100;
-        threadCnt = 5;
-        emptySleepTime = 100;
+        retrySleepTime = 1000;
+        threadCnt = 1;
+        emptySleepTime = 1000;
         sleepTime = 100;
     }
 }

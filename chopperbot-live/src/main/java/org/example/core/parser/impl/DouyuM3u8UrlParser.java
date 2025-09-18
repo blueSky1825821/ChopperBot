@@ -4,8 +4,8 @@ import org.example.core.creeper.loadconfig.DouyuRecordConfig;
 import org.example.core.parser.PlatformVideoUrlParser;
 import org.example.pool.LiveModuleConstPool;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.v115.network.Network;
-import org.openqa.selenium.devtools.v115.network.model.Response;
+import org.openqa.selenium.devtools.v139.network.Network;
+import org.openqa.selenium.devtools.v139.network.model.Response;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 
@@ -42,7 +42,7 @@ public class DouyuM3u8UrlParser implements PlatformVideoUrlParser<DouyuRecordCon
         devTools.createSession();
 
         // 启用 Network
-        devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+        devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()));
 
         // 创建一个数组来存储获取到的视频链接
         final String[] videoUrl = new String[1];

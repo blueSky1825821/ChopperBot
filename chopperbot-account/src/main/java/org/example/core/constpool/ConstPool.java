@@ -1,5 +1,9 @@
 package org.example.core.constpool;
 
+import lombok.Getter;
+
+import java.util.Objects;
+
 /**
  * @Description
  * @Author welsir
@@ -8,23 +12,24 @@ package org.example.core.constpool;
 public class ConstPool {
 
     //账号平台
+    @Getter
     public enum AccountPlatForm{
 
-        BILIBILI(1),
-        DOUYIN(2);
+        BILIBILI("1"),
+        DOUYIN("2");
 
-        private int id;
+        private String id;
 
-        AccountPlatForm(int id){
+        AccountPlatForm(String id){
             this.id = id;
         }
 
         public static int getPlatFormId (int id){
             return id;
         }
-        public static String fromId(int id) {
+        public static String fromId(String id) {
             for (AccountPlatForm platform : values()) {
-                if (platform.id == id) {
+                if (Objects.equals(platform.id, id)) {
                     return platform.toString();
                 }
             }

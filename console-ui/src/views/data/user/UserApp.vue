@@ -23,7 +23,7 @@ getUsers().then((res)=>{
     userStore.labels.push({
       id: String(value),
       title: String(value),
-      color: "black",
+      color: String(value)
     })
   });
 });

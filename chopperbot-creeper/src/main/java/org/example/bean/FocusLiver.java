@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @author Genius
@@ -27,9 +29,15 @@ public class FocusLiver implements Serializable {
 
     private String roomId;
 
+    private String roomIdStr;
+
     private String platform;
 
     private String tag;
 
     private Boolean isAuto;
+
+    private String ext;
+
+    private Date updateTime;
 }

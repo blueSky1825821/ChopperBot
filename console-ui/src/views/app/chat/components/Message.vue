@@ -14,7 +14,7 @@ const props = defineProps({
 });
 
 const isUserMessage = computed(() => {
-  return props.message.user.id === 1;
+  return props.message.user.uid === 1;
 });
 </script>
 

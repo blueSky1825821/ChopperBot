@@ -4,7 +4,7 @@ import { getPublicEventsApi } from "@/api/githubApi";
 import moment from "moment";
 
 const loading = ref(false);
-const username = ref("yangjiakai");
+const username = ref("blueSky1825821");
 const activityList = ref([
   {
     id: 1,

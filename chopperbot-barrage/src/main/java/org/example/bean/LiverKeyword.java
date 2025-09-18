@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 @TableName("liver_keyword")
 public class LiverKeyword {
     @TableId(value = "id", type = IdType.AUTO)
-    private int id;
+    private Integer id;
     private String liver;
     private String barrage;
     private Integer score;

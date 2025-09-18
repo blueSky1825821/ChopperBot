@@ -20,6 +20,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -36,7 +37,7 @@ public class AccountOperator extends ServiceImpl<AccountMapper,Account> implemen
     @Resource
     AccountTypeMapper accountTypeMapper;
     @Override
-    public void insertAccount(int platformId,String username) {
+    public void insertAccount(String platformId,String username) {
         PlatformOperation platformOperation = PlatformFactory.createPlatformOperation(platformId);
         Set<Cookie> cookies = platformOperation.login(platformId, username);
         List<StringBuilder> list = new ArrayList<>();
@@ -53,11 +54,21 @@ public class AccountOperator extends ServiceImpl<AccountMapper,Account> implemen
         }
         String realCookies = list.toString();
         Account account = new Account();
-        account.setPlatform_id(platformId);
+        account.setPlatformId(platformId);
         account.setCookies(realCookies);
         account.setUsername(username);
         System.out.println(account);
-        accountMapper.insert(account);
+        Account existAccount = accountMapper.selectByUsernameAndPlatformId(username, platformId);
+        AccountType accountType = new AccountType(account.getUid(), String.valueOf(platformId));
+        if (Objects.nonNull(existAccount)) {
+            account.setUid(existAccount.getUid());
+            accountMapper.updateById(account);
+            accountTypeMapper.updateById(accountType);
+        } else {
+            accountMapper.insert(account);
+            accountType.setUid(account.getUid());
+            accountTypeMapper.insert(accountType);
+        }
     }
 
     @Override
@@ -68,7 +79,7 @@ public class AccountOperator extends ServiceImpl<AccountMapper,Account> implemen
     }
 
     @Override
-    public List<AccountVO> getAllUsers(int id) {
+    public List<AccountVO> getAllUsers(String id) {
         List<Account> accountList = accountMapper.selectUserByPlatform(id);
         List<AccountType> accountTypes = accountTypeMapper.selectList(null);
         return addTypeToAccount(accountTypes,accountList);
@@ -86,12 +97,12 @@ public class AccountOperator extends ServiceImpl<AccountMapper,Account> implemen
         List<AccountVO> accountVOList = new ArrayList<>();
         for (Account account : accountList) {
             AccountVO accountVO = new AccountVO();
-            List<AccountType> types = typeMap.get(account.getId());
+            List<AccountType> types = typeMap.get(account.getUid());
             if (types != null) {
                 accountVO.setTypeList(types);
-                accountVO.setUid(account.getId());
+                accountVO.setUid(account.getUid());
                 accountVO.setUsername(account.getUsername());
-                accountVO.setPlatform(ConstPool.AccountPlatForm.fromId(account.getPlatform_id()));
+                accountVO.setPlatform(ConstPool.AccountPlatForm.fromId(account.getPlatformId()));
                 accountVOList.add(accountVO);
             }
         }

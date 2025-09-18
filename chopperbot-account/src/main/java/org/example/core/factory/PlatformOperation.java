@@ -12,6 +12,6 @@ import java.util.Set;
 
 public interface PlatformOperation {
 
-    Set<Cookie> login(int id, String account);
+    Set<Cookie> login(String id, String account);
 
 }

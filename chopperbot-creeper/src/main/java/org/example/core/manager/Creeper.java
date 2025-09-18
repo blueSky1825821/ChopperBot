@@ -28,5 +28,4 @@ public @interface Creeper {
 
     String platform() default "";
     boolean discard() default false;
-
 }

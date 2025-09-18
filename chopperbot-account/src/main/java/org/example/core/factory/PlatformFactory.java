@@ -12,7 +12,7 @@ import org.example.pojo.PlatformType;
  */
 public class PlatformFactory {
 
-    public static PlatformOperation createPlatformOperation(int platformId) {
+    public static PlatformOperation createPlatformOperation(String platformId) {
         switch (PlatformType.getPlatform(platformId)){
             case BILIBILI:
                 return new Bilibili();

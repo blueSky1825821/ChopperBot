@@ -16,7 +16,8 @@ import org.example.core.manager.Creeper;
         creeperDescription = "斗鱼的热门直播爬虫，可爬取直播和模块热门直播",
         priority = 10,
         group = ConstGroup.HOT_LIVE,
-        platform = ConstPool.DOUYU
+        platform = ConstPool.DOUYU,
+        discard = true
 )
 public class DouyuHotLiveConfig extends LoadHotModuleConfig {
 

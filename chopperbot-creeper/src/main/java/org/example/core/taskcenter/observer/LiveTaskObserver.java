@@ -2,13 +2,11 @@ package org.example.core.taskcenter.observer;
 
 import org.example.constpool.ConstGroup;
 import org.example.constpool.PluginName;
-import org.example.core.manager.CreeperGroupCenter;
 import org.example.core.taskcenter.TaskCenter;
 import org.example.core.taskcenter.request.ReptileRequest;
 import org.example.core.taskcenter.task.ReptileTask;
 import org.example.core.taskcenter.task.TaskStatus;
 import org.example.init.InitPluginRegister;
-import org.example.plugin.annotation.Plugin;
 import org.springframework.stereotype.Component;
 
 import static org.example.constpool.ConstPool.NULL_TIME;

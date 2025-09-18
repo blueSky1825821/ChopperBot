@@ -1,5 +1,6 @@
 package org.example.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @TableName("gpt_key")
 public class GPTKey {
+    @TableId
     private String key;
 
     private String url;

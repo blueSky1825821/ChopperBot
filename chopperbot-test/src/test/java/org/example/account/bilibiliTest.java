@@ -11,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -23,14 +24,14 @@ public class bilibiliTest {
 
     @Test
     public void getcookies() throws Exception {
-        System.setProperty("webdriver.chrome.driver", "D:\\downLoad\\chromedriver_win32\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver",  "D:\\Program Files\\chromedriver-win64\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
-        options.setBinary("C:\\Program Files (x86)\\Chromebrowser\\Chrome.exe");
+        options.setBinary("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe");
         ChromeDriver webDriver = new ChromeDriver(options);
         String url = "https://www.bilibili.com/";
         webDriver.get(url);
         // 与浏览器同步非常重要，必须等待浏览器加载完毕
-        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         //中间完成登录操作
         Scanner scanner = new Scanner(System.in);
         scanner.next();
@@ -39,7 +40,7 @@ public class bilibiliTest {
         webDriver.quit();
         ChromeDriver chromeDriver = new ChromeDriver(options);
         chromeDriver.get(url);
-        chromeDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        chromeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         chromeDriver.manage().deleteAllCookies();
         for (Cookie cookie : cookies) {
             chromeDriver.manage().addCookie(cookie);

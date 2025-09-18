@@ -14,9 +14,9 @@ const props = defineProps<{
 const userStore = useUserStore();
 const searchKey = ref("");
 
-const getLabelColor = (id: string) => {
+const getLabelColor = (uid: string) => {
   // Find the label by id from the labels array
-  const label = userStore.labels.find((l) => l.id === id);
+  const label = userStore.labels.find((l) => l.id === uid);
   // Return the color for that label, or an empty string
   return label ? label.color : "";
 };
@@ -52,7 +52,7 @@ const filterdUserList = computed(() => {
     <!-- ---------------------------------------------- -->
     <perfect-scrollbar class="user-list">
       <transition-group name="fade">
-        <div v-for="user in filterdUserList" :key="user.id">
+        <div v-for="user in filterdUserList" :key="user.uid">
           <div class="user-item d-flex align-center pa-5">
             <!--<v-checkbox-btn
               v-model="user.completed"
@@ -78,7 +78,7 @@ const filterdUserList = computed(() => {
                   size="x-small"
                   variant="outlined"
                   class="mr-1 mt-1"
-                  :color="getLabelColor(tag)"
+                  :color="getLabelColor(tag.uid)"
                   v-for="tag in user.typeList"
                 >
                   {{ tag.type }}

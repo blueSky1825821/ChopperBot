@@ -40,7 +40,7 @@ const getUsers = async () => {
 
   usersList.value = usersResponse.data.results.map((user) => {
     return {
-      id: user.id,
+      uid: user.uid,
       avatar: user.profile_image.small,
       username: user.username,
       name: user.name,

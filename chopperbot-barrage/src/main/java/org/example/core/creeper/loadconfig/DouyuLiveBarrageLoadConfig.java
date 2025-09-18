@@ -1,6 +1,8 @@
 package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.example.constpool.BarrageModuleConstPool;
 import org.example.constpool.ConstGroup;
 import org.example.constpool.ConstPool;
@@ -14,13 +16,15 @@ import org.example.core.manager.Creeper;
  * @date 2023/09/12 22:05
  **/
 
-@Data
+@Getter
+@Setter
 @Creeper(creeperName = "斗鱼直播弹幕爬虫",
         loadTask = DouyuLiveBarrageLoadTask.class,
         creeperDescription = "爬取斗鱼的直播弹幕（采用ws的方式实时获取）",
         priority = 10,
         group = ConstGroup.BARRAGE_ONLINE,
-        platform = ConstPool.DOUYU
+        platform = ConstPool.DOUYU,
+        discard = true
 )
 public class DouyuLiveBarrageLoadConfig extends LoadBarrageConfig{
 

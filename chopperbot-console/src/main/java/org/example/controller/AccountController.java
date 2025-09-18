@@ -26,7 +26,7 @@ public class AccountController {
     AccountService accountService;
 
     @GetMapping(value = "/getUser/{platformId}")
-    public Result getAllUser(@PathVariable int platformId){
+    public Result getAllUser(@PathVariable String platformId){
         List<AccountVO> list = accountService.accountPlugin().getAllUsers(platformId);
         return Result.success(list);
     }
@@ -37,7 +37,7 @@ public class AccountController {
     }
 
     @PostMapping(value = "/login/{platformId}")
-    public Result login(@RequestParam String username, @PathVariable int platformId){
+    public Result login(@RequestParam String username, @PathVariable String platformId){
         accountService.accountPlugin().addAccountSaveCookie(platformId,username);
         return Result.success();
     }

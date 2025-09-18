@@ -30,14 +30,14 @@ public class AccountApi {
      * 抖音登录默认为验证码登录
      * b站登录默认为账号密码登录
      */
-    public void addAccountSaveCookie(int platformId,  String username){
+    public void addAccountSaveCookie(String platformId,  String username){
         accountOperator.insertAccount(platformId,username);
     }
 
     /*
      * 根据平台id获取用户集合
      */
-    public List<AccountVO> getAllUsers(int platformId){
+    public List<AccountVO> getAllUsers(String platformId){
         return accountOperator.getAllUsers(platformId);
     }
 

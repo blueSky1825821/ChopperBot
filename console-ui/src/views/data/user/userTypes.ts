@@ -7,5 +7,5 @@ export interface User {
   platform: string;
   username: string;
   password: string;
-  typeList: string[];
+  typeList: Array<{ type: string; uid: string}>;
 }

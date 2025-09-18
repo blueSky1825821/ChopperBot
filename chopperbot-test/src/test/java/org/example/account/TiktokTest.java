@@ -18,6 +18,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -35,13 +36,13 @@ public class TiktokTest {
 
     @Test
     public void pushVideo() throws Exception {
-        System.setProperty("webdriver.chrome.driver", "D:\\downLoad\\chromedriver_win32\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "D:\\Program Files\\chromedriver-win64\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
-        options.setBinary("C:\\Program Files (x86)\\Chromebrowser\\Chrome.exe");
+        options.setBinary("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe");
         ChromeDriver webDriver = new ChromeDriver(options);
         String url = "https://www.tiktok.com/";
         webDriver.get(url);
-        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         Scanner scanner = new Scanner(System.in);
         scanner.next();
         Set<Cookie> cookies = webDriver.manage().getCookies();
@@ -49,7 +50,7 @@ public class TiktokTest {
         webDriver.quit();
         ChromeDriver chromeDriver = new ChromeDriver(options);
         chromeDriver.get(url);
-        chromeDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        chromeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         Set<Cookie> cookieSet = read();
         chromeDriver.manage().deleteAllCookies();
         for (Cookie cookie : cookieSet) {
@@ -58,7 +59,7 @@ public class TiktokTest {
         chromeDriver.navigate().refresh();
         WebElement uploadButton = chromeDriver.findElement(By.xpath("//*[@id=\"app-header\"]/div/div[3]/div[1]/a"));
         uploadButton.click();
-        WebDriverWait wait = new WebDriverWait(chromeDriver, 10);
+        WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(10));
         WebElement iframe = wait.until(ExpectedConditions.visibilityOfElementLocated
                 (By.xpath("/html/body/div/div[2]/div[2]/div/div/iframe")));
         chromeDriver.switchTo().frame(iframe);
@@ -74,14 +75,14 @@ public class TiktokTest {
 
     @Test
     public void updateUser() throws Exception {
-        System.setProperty("webdriver.chrome.driver", "D:\\downLoad\\chromedriver_win32\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "D:\\Program Files\\chromedriver-win64\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
-        options.setBinary("C:\\Program Files (x86)\\Chromebrowser\\Chrome.exe");
+        options.setBinary("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe");
 //        ChromeDriver webDriver = new ChromeDriver(options);
         String url = "https://www.tiktok.com/";
         ChromeDriver chromeDriver = new ChromeDriver(options);
         chromeDriver.get(url);
-        chromeDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        chromeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         Set<Cookie> cookieSet = read();
         chromeDriver.manage().deleteAllCookies();
         for (Cookie cookie : cookieSet) {
@@ -90,7 +91,7 @@ public class TiktokTest {
         chromeDriver.navigate().refresh();
         String account = "@user616845559";
         chromeDriver.get(url+account);
-        WebDriverWait wait = new WebDriverWait(chromeDriver, 10);
+        WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(10));
         WebElement update = wait.until(ExpectedConditions.elementToBeClickable
                 (By.xpath("/html/body/div[1]/div[2]/div[2]/div/div/div[1]/div[1]/div[2]/div/button")));
         update.click();

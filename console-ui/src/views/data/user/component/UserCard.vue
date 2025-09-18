@@ -4,18 +4,23 @@
 * @Description:
 -->
 <script setup lang="ts">
+import { ref, computed } from 'vue';
 import { User } from "../userTypes";
 import { useUserStore } from "../userStore";
 const userStore = useUserStore();
 const dialog = ref(false);
 const loadTask = ref<User>({
-  id: "",
+  uid: "",
   title: "",
   detail: "",
-  tags: [],
   completed: false,
+  tags: [],
+  platform: "",
+  username: "",
+  password: "",
+  typeList: []
 });
-const isEdit = computed(() => loadTask.value && !!loadTask.value.id);
+const isEdit = computed(() => loadTask.value && !!loadTask.value.uid);
 
 const close = () => {
   dialog.value = false;

@@ -57,7 +57,7 @@ const openGithubSite = () => {
     <!-- ---------------------------------------------- -->
     <!---Bottom Area -->
     <!-- ---------------------------------------------- -->
-    <template v-if="!customizeTheme.miniSidebar" v-slot:append>
+    <!-- <template v-if="!customizeTheme.miniSidebar" v-slot:append>
       <v-card theme="dark" height="225" class="pa-3" style="margin-bottom: 100px" variant="text">
         <v-card
           class="d-flex flex-column gradient pa-2"
@@ -94,7 +94,7 @@ const openGithubSite = () => {
           </v-card-actions>
         </v-card>
       </v-card>
-    </template>
+    </template> -->
   </v-navigation-drawer>
 </template>
 

@@ -16,4 +16,9 @@ public class ApiPool {
 
     public static final String DOUYU_HOT_MODULE_LIVES_API = "https://www.douyu.com/gapi/rkc/directory/mixList/2_%s/1"; //某个模块热门直播api
 
+    public static final String DOUYIN_LIVE_HOME = "https://live.douyin.com/";
+    public static final String DOUYIN_LIVE_CHECK_API = "webcast/room/web/enter";
+    public static final String DOUYIN_LIVE_ONLINE_API = "webcast/dress/list/";
+
+
 }

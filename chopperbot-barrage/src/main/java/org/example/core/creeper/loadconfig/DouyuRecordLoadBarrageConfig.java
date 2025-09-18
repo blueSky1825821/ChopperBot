@@ -1,6 +1,8 @@
 package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.example.constpool.ConstGroup;
 import org.example.constpool.ConstPool;
 import org.example.constpool.CreeperModuleConstPool;
@@ -12,13 +14,15 @@ import org.example.core.manager.Creeper;
  * @author 燧枫
  * @date 2023/4/23 16:30
 */
-@Data
+@Getter
+@Setter
 @Creeper(creeperName = "斗鱼录播爬虫",
         loadTask = DouyuRecordBarrageLoadTask.class,
         creeperDescription = "斗鱼录播弹幕爬虫(WebMagic,需要提供录播Id)",
         priority = 10,
         group = ConstGroup.BARRAGE_RECORD,
-        platform = ConstPool.DOUYU
+        platform = ConstPool.DOUYU,
+        discard = true
 )
 public class DouyuRecordLoadBarrageConfig extends LoadBarrageConfig {
 

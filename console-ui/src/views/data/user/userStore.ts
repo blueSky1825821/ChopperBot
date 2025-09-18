@@ -1,18 +1,20 @@
 import { defineStore } from "pinia";
 import { User } from "./userTypes";
+import { UserLabel } from "./userLabels";
+import { getAllUsers } from "@/api/account/accountApi";
 
 const users = [
 
 ];
+
+const labels = Array<UserLabel>();
 
 export const useUserStore = defineStore({
   id: "user",
   state: () => ({
     userList: users,
     currentLabel: "sad",
-    labels: [
-
-    ],
+    labels: labels,
   }),
 
   // persist: {
@@ -60,6 +62,17 @@ export const useUserStore = defineStore({
     deleteUserById(userId: string) {
       const index = this.userList.findIndex((user: User) => user.uid === userId);
       this.userList.splice(index, 1);
+    },
+    
+    // Fetch users from backend
+    async fetchUsers() {
+      try {
+        const response = await getAllUsers();
+        // TODO: 根据实际返回的数据结构处理用户列表
+        // this.userList = response.data.list;
+      } catch (error) {
+        console.error("获取用户列表失败:", error);
+      }
     },
   },
 });

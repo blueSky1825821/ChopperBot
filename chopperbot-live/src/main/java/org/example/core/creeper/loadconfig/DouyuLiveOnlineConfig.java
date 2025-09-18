@@ -1,6 +1,7 @@
 package org.example.core.creeper.loadconfig;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.example.constpool.ConstGroup;
 import org.example.constpool.ConstPool;
 import org.example.core.creeper.loadtask.DouyuLiveOnlineLoadTask;
@@ -10,13 +11,15 @@ import org.example.core.manager.Creeper;
  * @author Genius
  * @date 2023/07/28 23:17
  **/
-@Data
+@Getter
+@Setter
 @Creeper(creeperName = "斗鱼直播爬虫",
         loadTask = DouyuLiveOnlineLoadTask.class,
         creeperDescription = "斗鱼直播爬取(包含监控器)",
         priority = 10,
         group = ConstGroup.LIVE_ONLINE,
-        platform = ConstPool.DOUYU
+        platform = ConstPool.DOUYU,
+        discard = true
 )
 public class DouyuLiveOnlineConfig extends LoadLiveConfig {
     public DouyuLiveOnlineConfig(String roomId, String videoPath, String videoName,int clarity) {

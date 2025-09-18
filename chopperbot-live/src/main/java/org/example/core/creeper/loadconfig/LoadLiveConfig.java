@@ -1,6 +1,8 @@
 package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.example.bean.Live;
 import org.example.constpool.FileNameBuilder;
 import org.example.core.loadconfig.LoadConfig;
@@ -14,7 +16,8 @@ import java.nio.file.Path;
  * @author Genius
  * @date 2023/07/28 23:16
  **/
-@Data
+@Getter
+@Setter
 public abstract class LoadLiveConfig extends LoadVideoConfig {
     // 房间号
     protected String roomId;

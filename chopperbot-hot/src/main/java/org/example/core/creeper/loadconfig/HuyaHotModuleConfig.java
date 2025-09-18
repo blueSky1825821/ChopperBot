@@ -16,7 +16,8 @@ import org.example.core.manager.Creeper;
         creeperDescription = "获取虎牙的热门模块，按照人气排行",
         priority = 10,
         group = ConstGroup.HOT_MODULE,
-        platform = ConstPool.HUYA
+        platform = ConstPool.HUYA,
+        discard = true
 )
 public class HuyaHotModuleConfig extends LoadHotModuleConfig{
 

@@ -44,7 +44,7 @@ const getLabelColor = (id: string) => {
 
     <perfect-scrollbar class="user-list">
       <transition-group name="fade">
-        <div v-for="user in filterdUserList" :key="user.id">
+        <div v-for="user in filterdUserList" :key="user.uid">
           <div class="user-item d-flex align-center pa-5">
             <v-checkbox-btn
               v-model="user.completed"
@@ -84,7 +84,7 @@ const getLabelColor = (id: string) => {
             <v-btn
               icon="mdi-delete-outline"
               variant="text"
-              @click="userStore.deleteUserById(user.id)"
+              @click="userStore.deleteUserById(user.uid)"
             ></v-btn>
           </div>
         </div>

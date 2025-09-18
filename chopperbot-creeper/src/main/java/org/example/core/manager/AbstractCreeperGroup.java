@@ -2,13 +2,10 @@ package org.example.core.manager;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.example.bean.Barrage;
 import org.example.core.loadconfig.LoadConfig;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 

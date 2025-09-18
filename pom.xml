@@ -45,15 +45,16 @@
     <java.version>11</java.version>
     <mysql.version>8.0.28</mysql.version>
     <mybatis.version>3.5.1</mybatis.version>
+    <mybatis.springboot.starter.version>3.0.3</mybatis.springboot.starter.version>
     <mybatis-generator.version>3.5.1</mybatis-generator.version>
     <mybatis-plus-annotation.version>3.5.1</mybatis-plus-annotation.version>
     <sqlite.version>3.36.0.3</sqlite.version>
 
     <spring-boot-test.version>2.3.9.RELEASE</spring-boot-test.version>
-    <selenium.version>4.0.0</selenium.version>
+    <selenium.version>4.35.0</selenium.version>
     <selenium-devtools-v115.version>4.11.0</selenium-devtools-v115.version>
     <httpcilent.version>4.5.14</httpcilent.version>
-    <webmagic.version>0.8.0</webmagic.version>
+      <webmagic.version>1.0.3</webmagic.version>
     <okio.version>3.2.0</okio.version>
     <okhttp.version>4.9.0</okhttp.version>
   </properties>
@@ -120,7 +121,7 @@
       <dependency>
         <groupId>org.mybatis.spring.boot</groupId>
         <artifactId>mybatis-spring-boot-starter</artifactId>
-        <version>${mybatis.version}</version>
+          <version>${mybatis.springboot.starter.version}</version>
       </dependency>
       <dependency>
         <groupId>com.baomidou</groupId>
@@ -178,11 +179,12 @@
         <version>${selenium.version}</version>
       </dependency>
 
-      <dependency>
+    <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-devtools-v139 -->
+    <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
-        <artifactId>selenium-devtools-v115</artifactId>
-        <version>${selenium-devtools-v115.version}</version>
-      </dependency>
+        <artifactId>selenium-devtools-v139</artifactId>
+        <version>4.35.0</version>
+    </dependency>
 
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
