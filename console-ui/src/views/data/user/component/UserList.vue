@@ -30,7 +30,7 @@ const filterdUserList = computed(() => {
 </script>
 
 <template>
-  <v-card height="100%">
+  <v-card height="100%" style="width: 33.33%;">
     <v-alert border color="#C51162" icon="mdi-material-design" theme="dark">
       正在施工中...
     </v-alert>

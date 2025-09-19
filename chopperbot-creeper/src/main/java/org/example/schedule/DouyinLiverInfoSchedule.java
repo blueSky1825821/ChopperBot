@@ -69,90 +69,85 @@ public class DouyinLiverInfoSchedule {
         options.addArguments(ConstCreeper.REMOTE_ALLOW_ORIGINS);
         Date ago = Date.from(LocalDateTime.now().minusHours(6L).atZone(ZoneId.systemDefault()).toInstant());
 
-        // 重用ChromeDriver实例，提高性能
-        ChromeDriver driver = null;
-        try {
-            for (FocusLiver douyinFocusLiver : douyinFocusLivers) {
-                boolean after =
-                        douyinFocusLiver.getUpdateTime().after(ago);
-                if (after) {
-                    continue;
-                }
-                driver = new ChromeDriver(options);
-                JSONObject extJson = new JSONObject();
-                try {
-                    // 确保只操作一个窗口
-                    String originalWindow = driver.getWindowHandle();
-                    // 访问网页
-                    driver.get("https://live.douyin.com/" + douyinFocusLiver.getRoomId());
-
-                    // 如果意外打开了多个标签页，关闭多余的
-                    for (String windowHandle : driver.getWindowHandles()) {
-                        if (!originalWindow.equals(windowHandle)) {
-                            driver.switchTo().window(windowHandle);
-                            driver.close();
-                        }
-                    }
-                    // 切换回原始窗口
-                    driver.switchTo().window(originalWindow);
-
-                    // 获取DevTools实例
-                    DevTools devTools = driver.getDevTools();
-                    devTools.createSession();
-                    //返回响应头 0 url 1 room_id_str
-                    final String[] strings = new String[2];
-                    // 启用网络域
-                    devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty(),
-                                    Optional.empty()),
-                            Duration.ofSeconds(2 * 60L));
-                    CountDownLatch count = new CountDownLatch(1);
-                    devTools.addListener(Network.responseReceived(), (ResponseReceived responseReceived) -> {
-                        try {
-                            if (StringUtils.contains(responseReceived.getResponse().getUrl(), "https://live.douyin" +
-                                    ".com/webcast/room/web/enter/?aid")) {
-                                strings[0] = responseReceived.getResponse().getUrl();
-                                extJson.put("enterUrl", strings[0]);
-                                // 提取 room_id_str
-                                strings[1] = extractRoomIdStr(strings[0]);
-                                count.countDown();
-                            }
-                        } catch (Exception e) {
-                            LOGGER.error("获取直播信息出错, url:{}", responseReceived.getResponse().getUrl());
-                        }
-                    });
-                    //返回cookie
-                    List<Cookie> cookies = devTools.send(Network.getCookies(Optional.empty()),
-                            Duration.ofSeconds(2 * 60L));
-                    if (CollectionUtils.isNotEmpty(cookies)) {
-                        String cookieString = cookies.stream()
-                                .map(cookie -> cookie.getName() + "=" + cookie.getValue())
-                                .collect(Collectors.joining("; "));
-                        extJson.put("Cookie", cookieString);
-                        extJson.put("User-Agent", ConstCreeper.USER_AGENT);
-                    }
-                    boolean await = count.await(3L * 60, TimeUnit.SECONDS);
-                    if (await) {
-                        FocusLiver update = new FocusLiver();
-                        update.setId(douyinFocusLiver.getId());
-                        update.setUpdateTime(new Date());
-                        update.setExt(extJson.toJSONString());
-                        update.setRoomIdStr(strings[1]);
-                        focusLiverService.updateLivers(update);
-                        LOGGER.info("更新抖音主播信息成功，roomId: {}", douyinFocusLiver.getRoomId());
-                    } else {
-                        LOGGER.error("处理抖音主播信息失败，roomId: {}", douyinFocusLiver.getRoomId());
-                    }
-                } catch (InterruptedException e) {
-                    LOGGER.error("处理抖音主播信息失败，roomId: {}", douyinFocusLiver.getRoomId(), e);
-                    // 保留中断状态
-                    Thread.currentThread().interrupt();
-                } catch (Exception e) {
-                    LOGGER.error("处理抖音主播信息失败，roomId: {}", douyinFocusLiver.getRoomId(), e);
-                }
+        for (FocusLiver douyinFocusLiver : douyinFocusLivers) {
+            boolean after =
+                    douyinFocusLiver.getUpdateTime().after(ago);
+            if (after) {
+                continue;
             }
-        } finally {
-            // 确保资源被正确释放
-            if (driver != null) {
+            // 重用ChromeDriver实例，提高性能
+            ChromeDriver driver = new ChromeDriver(options);
+            JSONObject extJson = new JSONObject();
+            try {
+                // 确保只操作一个窗口
+                String originalWindow = driver.getWindowHandle();
+                // 访问网页
+                driver.get("https://live.douyin.com/" + douyinFocusLiver.getRoomId());
+
+                // 如果意外打开了多个标签页，关闭多余的
+                for (String windowHandle : driver.getWindowHandles()) {
+                    if (!originalWindow.equals(windowHandle)) {
+                        driver.switchTo().window(windowHandle);
+                        driver.close();
+                    }
+                }
+                // 切换回原始窗口
+                driver.switchTo().window(originalWindow);
+
+                // 获取DevTools实例
+                DevTools devTools = driver.getDevTools();
+                devTools.createSession();
+                //返回响应头 0 url 1 room_id_str
+                final String[] strings = new String[2];
+                // 启用网络域
+                devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty(),
+                                Optional.empty()),
+                        Duration.ofSeconds(5 * 60L));
+                CountDownLatch count = new CountDownLatch(1);
+                devTools.addListener(Network.responseReceived(), (ResponseReceived responseReceived) -> {
+                    try {
+                        if (StringUtils.contains(responseReceived.getResponse().getUrl(), "https://live.douyin" +
+                                ".com/webcast/room/web/enter/?aid")) {
+                            strings[0] = responseReceived.getResponse().getUrl();
+                            extJson.put("enterUrl", strings[0]);
+                            // 提取 room_id_str
+                            strings[1] = extractRoomIdStr(strings[0]);
+                            count.countDown();
+                        }
+                    } catch (Exception e) {
+                        LOGGER.error("获取直播信息出错, url:{}", responseReceived.getResponse().getUrl());
+                    }
+                });
+                //返回cookie
+                List<Cookie> cookies = devTools.send(Network.getCookies(Optional.empty()),
+                        Duration.ofSeconds(5 * 60L));
+                if (CollectionUtils.isNotEmpty(cookies)) {
+                    String cookieString = cookies.stream()
+                            .map(cookie -> cookie.getName() + "=" + cookie.getValue())
+                            .collect(Collectors.joining("; "));
+                    extJson.put("Cookie", cookieString);
+                    extJson.put("User-Agent", ConstCreeper.USER_AGENT);
+                }
+                boolean await = count.await(5L * 60, TimeUnit.SECONDS);
+                if (await) {
+                    FocusLiver update = new FocusLiver();
+                    update.setId(douyinFocusLiver.getId());
+                    update.setUpdateTime(new Date());
+                    update.setExt(extJson.toJSONString());
+                    update.setRoomIdStr(strings[1]);
+                    focusLiverService.updateLivers(update);
+                    LOGGER.info("更新抖音主播信息成功，roomId: {}", douyinFocusLiver.getRoomId());
+                } else {
+                    LOGGER.error("处理抖音主播信息失败，roomId: {}", douyinFocusLiver.getRoomId());
+                }
+            } catch (InterruptedException e) {
+                LOGGER.error("处理抖音主播信息失败，roomId: {}", douyinFocusLiver.getRoomId(), e);
+                // 保留中断状态
+                Thread.currentThread().interrupt();
+            } catch (Exception e) {
+                LOGGER.error("处理抖音主播信息失败，roomId: {}", douyinFocusLiver.getRoomId(), e);
+            } finally {
+                // 确保资源被正确释放
                 try {
                     driver.quit();
                 } catch (Exception e) {

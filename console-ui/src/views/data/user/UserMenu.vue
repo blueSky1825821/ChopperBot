@@ -1,5 +1,5 @@
 <template>
-  <div class="user-menu" style="width: 200%;">
+  <div class="user-menu">
     <el-card class="box-card">
       <template #header>
         <div class="card-header">
