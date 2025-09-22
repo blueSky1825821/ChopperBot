@@ -5,7 +5,7 @@ import org.example.core.channel.AccountBindChannel;
 import org.example.util.Result;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * @Description 用户通道API

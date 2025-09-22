@@ -18,10 +18,11 @@ import org.example.core.taskcenter.request.ReptileRequest;
 import org.example.core.taskcenter.task.ReptileTask;
 import org.example.core.loadconfig.LoadConfig;
 import org.example.plugin.SpringGuardPlugin;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -55,6 +56,7 @@ public class TaskCenter extends SpringGuardPlugin {
     private TaskCenterLogger taskCenterLogger;
 
     @Resource
+    @Lazy
     private List<AbstractTaskCenterObserver> taskObservers;
 
     public TaskCenter() {

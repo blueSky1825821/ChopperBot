@@ -9,6 +9,7 @@ import org.example.constpool.ConstPool;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.service.FocusLiverService;
+import org.example.ws.DouyinLiveWebSocketClient;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
@@ -45,10 +46,14 @@ public class DouyinLiverInfoSchedule {
     private static final Pattern ROOM_ID_STR_PATTERN = Pattern.compile("[?&]room_id_str=([^&]*)");
     @Autowired
     public FocusLiverService focusLiverService;
+    @Autowired
+    private DouyinLiveWebSocketClient client;
 
     @Scheduled(initialDelay = 5 * 1000, fixedRate = 10 * 60 * 1000)
     public void liverChecker() {
         try {
+            client.connectWebSocket("163823390463");
+
             LOGGER.info("开始执行抖音参数信息定时任务");
             process();
             LOGGER.info("执行抖音参数信息定时任务结束");
@@ -67,7 +72,7 @@ public class DouyinLiverInfoSchedule {
         ChromeOptions options = new ChromeOptions();
         options.setBinary(ConstCreeper.WEBDRIVER_CHROME_APP);
         options.addArguments(ConstCreeper.REMOTE_ALLOW_ORIGINS);
-        Date ago = Date.from(LocalDateTime.now().minusHours(6L).atZone(ZoneId.systemDefault()).toInstant());
+        Date ago = Date.from(LocalDateTime.now().minusHours(1L).atZone(ZoneId.systemDefault()).toInstant());
 
         for (FocusLiver douyinFocusLiver : douyinFocusLivers) {
             boolean after =

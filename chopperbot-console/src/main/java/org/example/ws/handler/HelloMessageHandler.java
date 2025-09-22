@@ -4,7 +4,7 @@ import org.example.ws.WebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.websocket.Session;
+import jakarta.websocket.Session;
 
 /**
  * @author Genius

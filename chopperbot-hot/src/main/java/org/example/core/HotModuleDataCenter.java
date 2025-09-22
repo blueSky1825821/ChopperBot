@@ -23,7 +23,7 @@ import org.example.thread.oddjob.OddJobBoy;
 import org.example.util.TimeUtil;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;

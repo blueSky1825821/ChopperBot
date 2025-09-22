@@ -75,10 +75,6 @@
             <version>5.0.0</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>chopperbot-creeper</artifactId>
-        </dependency>
         <!--        selenium-->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>

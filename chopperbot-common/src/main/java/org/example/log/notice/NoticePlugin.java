@@ -9,7 +9,7 @@ import org.example.util.ExceptionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ExecutorService;

@@ -3,7 +3,7 @@ package org.example.http;
 import okhttp3.OkHttpClient;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.net.Proxy;
 import java.util.concurrent.TimeUnit;
 

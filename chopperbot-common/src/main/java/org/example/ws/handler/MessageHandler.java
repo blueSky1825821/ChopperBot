@@ -1,7 +1,7 @@
 package org.example.ws.handler;
 
 
-import javax.websocket.Session;
+import jakarta.websocket.Session;
 import java.util.Map;
 
 /**

@@ -8,7 +8,7 @@ import org.example.mapper.AccountCookieMapper;
 import org.example.service.AccountCookieService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 
 /**

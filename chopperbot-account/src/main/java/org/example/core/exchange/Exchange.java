@@ -16,8 +16,8 @@ import org.example.pojo.VideoToPush;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.*;

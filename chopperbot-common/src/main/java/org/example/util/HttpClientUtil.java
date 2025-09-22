@@ -17,6 +17,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.springframework.http.HttpMethod.DELETE;
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.PUT;
+
 /**
  * 简单的get,post请求工具类
  * @author 燧枫
@@ -28,47 +33,47 @@ public class HttpClientUtil {
     private static final HttpClientExecutor executor = new HttpClientExecutor(httpClient, responseHandler);
 
     public static String get(String url) {
-        HttpUriRequest request = HttpRequestFactory.createRequest(HttpMethod.GET, url, null, null);
+        HttpUriRequest request = HttpRequestFactory.createRequest(GET, url, null, null);
         return executor.execute(request);
     }
 
     public static String get(String url, Map<String, String> headers) {
-        HttpUriRequest request = HttpRequestFactory.createRequest(HttpMethod.GET, url, null, headers);
+        HttpUriRequest request = HttpRequestFactory.createRequest(GET, url, null, headers);
         return executor.execute(request);
     }
 
     public static String post(String url) {
-        HttpUriRequest request = HttpRequestFactory.createRequest(HttpMethod.POST, url, null, null);
+        HttpUriRequest request = HttpRequestFactory.createRequest(POST, url, null, null);
         return executor.execute(request);
     }
 
     public static String post(String url, String json) {
-        HttpUriRequest request = HttpRequestFactory.createRequest(HttpMethod.POST, url, json, null);
+        HttpUriRequest request = HttpRequestFactory.createRequest(POST, url, json, null);
         return executor.execute(request);
     }
 
     public static String post(String url, String json, Map<String, String> headers) {
-        HttpUriRequest request = HttpRequestFactory.createRequest(HttpMethod.POST, url, json, headers);
+        HttpUriRequest request = HttpRequestFactory.createRequest(POST, url, json, headers);
         return executor.execute(request);
     }
 
     public static String put(String url) {
-        HttpUriRequest request = HttpRequestFactory.createRequest(HttpMethod.PUT, url, null, null);
+        HttpUriRequest request = HttpRequestFactory.createRequest(PUT, url, null, null);
         return executor.execute(request);
     }
 
     public static String put(String url, String json) {
-        HttpUriRequest request = HttpRequestFactory.createRequest(HttpMethod.PUT, url, json, null);
+        HttpUriRequest request = HttpRequestFactory.createRequest(PUT, url, json, null);
         return executor.execute(request);
     }
 
     public static String delete(String url) {
-        HttpUriRequest request = HttpRequestFactory.createRequest(HttpMethod.DELETE, url, null, null);
+        HttpUriRequest request = HttpRequestFactory.createRequest(DELETE, url, null, null);
         return executor.execute(request);
     }
 
     public static String delete(String url, Map<String, String> headers) {
-        HttpUriRequest request = HttpRequestFactory.createRequest(HttpMethod.DELETE, url, null, headers);
+        HttpUriRequest request = HttpRequestFactory.createRequest(DELETE, url, null, headers);
         return executor.execute(request);
     }
 
@@ -128,14 +133,15 @@ class DefaultResponseHandler implements ResponseHandler {
 
 class HttpRequestFactory {
     public static HttpUriRequest createRequest(HttpMethod method, String url, String json, Map<String, String> headers) {
-        switch (method) {
-            case GET:
+        String methodName = method.name();
+        switch (methodName) {
+            case "GET":
                 return createGetRequest(url, headers);
-            case POST:
+            case "POST":
                 return createPostRequest(url, json, headers);
-            case PUT:
+            case "PUT":
                 return createPutRequest(url, json, headers);
-            case DELETE:
+            case "DELETE":
                 return createDeleteRequest(url, headers);
             default:
                 throw new IllegalArgumentException("Unsupported HTTP method: " + method);

@@ -4,7 +4,7 @@ import org.example.plugin.SpringBootPlugin;
 import org.example.sql.SQLInitHelper;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * @author Genius

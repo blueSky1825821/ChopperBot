@@ -5,7 +5,7 @@ import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 
 /**

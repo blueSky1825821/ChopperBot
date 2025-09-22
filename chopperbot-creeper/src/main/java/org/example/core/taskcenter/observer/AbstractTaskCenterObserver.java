@@ -4,7 +4,7 @@ import org.example.core.taskcenter.TaskCenter;
 import org.example.core.taskcenter.task.ReptileTask;
 import org.example.core.taskcenter.task.TaskStatus;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * @author Genius

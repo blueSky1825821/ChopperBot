@@ -3,26 +3,20 @@ package org.example.account;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONReader;
-import org.example.ConsoleApplication;
+import jakarta.annotation.Resource;
 import org.example.mapper.AccountMapper;
-import org.example.pojo.Account;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.annotation.Resource;
-import java.io.*;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.Duration;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
-
-import static org.example.utils.GetScriptPath.getScriptPath;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @Description

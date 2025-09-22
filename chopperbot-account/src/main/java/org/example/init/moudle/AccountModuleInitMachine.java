@@ -11,7 +11,7 @@ import org.example.sql.SQLInitHelper;
 import org.example.sql.annotation.SQLInit;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 
 /**

@@ -15,7 +15,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;;
+import jakarta.annotation.Resource;
 import java.util.Set;
 
 import static org.example.constpool.ConstPool.PROJECT_PATH;

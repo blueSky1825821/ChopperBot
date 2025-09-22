@@ -6,7 +6,7 @@ import org.example.mapper.GPTKeyMapper;
 import org.example.pojo.GPTKey;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 

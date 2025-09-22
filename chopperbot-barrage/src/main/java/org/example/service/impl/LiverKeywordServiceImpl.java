@@ -6,7 +6,7 @@ import org.example.mapper.LiverKeywordMapper;
 import org.example.service.LiverKeywordService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 

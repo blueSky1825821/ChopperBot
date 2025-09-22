@@ -5,7 +5,7 @@ import org.example.core.recommend.HeatRecommendation;
 import org.example.service.FollowDogService;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 import java.util.UUID;
 

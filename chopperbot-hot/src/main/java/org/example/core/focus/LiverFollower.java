@@ -20,7 +20,7 @@ import org.example.sql.annotation.SQLInit;
 import org.example.thread.NamedThreadFactory;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;

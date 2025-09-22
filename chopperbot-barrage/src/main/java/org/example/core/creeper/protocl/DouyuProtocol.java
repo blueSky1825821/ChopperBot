@@ -1,6 +1,6 @@
 package org.example.core.creeper.protocl;
 
-import javax.xml.bind.DatatypeConverter;
+import jakarta.xml.bind.DatatypeConverter;
 import java.nio.ByteBuffer;
 
 /**

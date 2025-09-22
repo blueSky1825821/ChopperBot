@@ -7,7 +7,7 @@ import org.example.service.impl.AccountChannelServiceImpl;
 import org.example.util.Result;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * @Description

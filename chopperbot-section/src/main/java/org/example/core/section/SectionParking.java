@@ -8,7 +8,7 @@ import org.example.mapper.VideoSectionMapper;
 import org.example.util.JsonFileUtil;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;

@@ -4,7 +4,7 @@ import org.example.service.NetworkDiskService;
 import org.example.util.Result;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * @Description

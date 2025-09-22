@@ -6,7 +6,7 @@ import org.example.api.TaskCenterApi;
 import org.example.service.CreeperService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * @author Genius

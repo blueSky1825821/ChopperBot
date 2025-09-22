@@ -13,7 +13,7 @@ import org.example.sql.annotation.SQLInit;
 import org.example.util.ExceptionUtil;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.io.IOException;
 import java.util.*;
 import java.util.regex.Matcher;

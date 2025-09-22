@@ -5,7 +5,7 @@ import org.example.core.auto.video.title.GptTitleGenerator;
 import org.example.util.StringUtil;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.Map;
 
 /**

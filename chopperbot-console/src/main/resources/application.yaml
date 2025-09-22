@@ -1,5 +1,5 @@
 server:
-  port: 8888
+  port: 8889
 
 spring:
   datasource:
@@ -7,6 +7,8 @@ spring:
     username: root
     password: root
     driver-class-name: org.sqlite.JDBC
+  main:
+    allow-circular-references: false
 
 chopperbot:
   proxy:

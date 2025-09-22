@@ -4,7 +4,7 @@ import org.example.api.BarrageScoreCurvePluginApi;
 import org.example.service.BarrageService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * @author Genius

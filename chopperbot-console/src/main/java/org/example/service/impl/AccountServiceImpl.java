@@ -9,7 +9,7 @@ import org.example.api.OpenAPIPluginApi;
 import org.example.service.AccountService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * @Description

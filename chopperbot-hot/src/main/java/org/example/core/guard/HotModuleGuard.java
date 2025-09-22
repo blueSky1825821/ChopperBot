@@ -18,7 +18,7 @@ import org.example.sql.annotation.SQLInit;
 import org.example.thread.NamedThreadFactory;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

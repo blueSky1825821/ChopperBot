@@ -9,7 +9,7 @@ import org.example.sql.annotation.SQLInit;
 import org.example.util.ClassUtil;
 import org.springframework.beans.BeanUtils;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 

@@ -5,7 +5,7 @@ import org.example.core.label.LabelManagerPlugin;
 import org.example.pojo.VideoLabel;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;

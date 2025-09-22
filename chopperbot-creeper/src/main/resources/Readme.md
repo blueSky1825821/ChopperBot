@@ -1,0 +1,2 @@
+# 生成protobuf文件 jdk21
+E:\software\apache-maven-4.0.0-rc-4\bin\mvn.cmd -X -Didea.version=2025.2.1 -Dmaven.ext.class.path=C:\Users\admin\AppData\Roaming\JetBrains\IdeaIC2025.2\plugins\maven\lib\maven-event-listener.jar -Djansi.passthrough=true -Dstyle.color=always -s E:\software\apache-maven-3.9.6\conf\my-settings.xml -Dmaven.repo.local=D:\mvn_reposity org.xolstice.maven.plugins:protobuf-maven-plugin:0.6.1:compile -f pom.xml

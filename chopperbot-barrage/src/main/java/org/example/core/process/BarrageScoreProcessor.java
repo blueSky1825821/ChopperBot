@@ -1,11 +1,8 @@
 package org.example.core.process;
 
-import org.assertj.core.internal.bytebuddy.build.Plugin;
 import org.example.constpool.PluginName;
 import org.example.core.listen.BarrageFileMonitor;
 import org.example.init.InitPluginRegister;
-import org.example.plugin.CommonPlugin;
-import org.example.pojo.Anchor;
 import org.example.pojo.Barrage;
 
 import java.util.ArrayList;

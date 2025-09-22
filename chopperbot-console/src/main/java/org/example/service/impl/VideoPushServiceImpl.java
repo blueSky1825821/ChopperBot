@@ -5,7 +5,7 @@ import org.example.api.VideoPushApi;
 import org.example.service.VideoService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * @Description
