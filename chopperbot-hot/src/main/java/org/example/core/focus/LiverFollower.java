@@ -184,6 +184,7 @@ public class LiverFollower extends SpringBootPlugin{
             "\t\"is_auto\"\tINTEGER NOT NULL DEFAULT 1,\n" +
             "\t\"ext\"\tTEXT,\n" +
             "\t\"update_time\"\tDATETIME,\n" +
+            "\t\"room_id_str\"\tTEXT,\n" +
             "\tPRIMARY KEY(\"id\" AUTOINCREMENT)\n" +
             ")",mapper = FocusLiverMapper.class)
     public List<FocusLiver> sqlInit() {
