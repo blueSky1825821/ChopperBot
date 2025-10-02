@@ -52,7 +52,7 @@ public class DouyinLiverInfoSchedule {
     @Scheduled(initialDelay = 5 * 1000, fixedRate = 10 * 60 * 1000)
     public void liverChecker() {
         try {
-            client.connectWebSocket("163823390463");
+            client.connectWebSocket("296728101980");
 
             LOGGER.info("开始执行抖音参数信息定时任务");
             process();

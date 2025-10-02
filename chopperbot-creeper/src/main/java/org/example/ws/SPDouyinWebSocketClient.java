@@ -27,7 +27,8 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class SPDouyinWebSocketClient extends AbstractWebSocketHandler {
 
-    private ScheduledExecutorService scheduler;
+    private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
     private DouyinLiveWebFetcher fetcher;
 
     public SPDouyinWebSocketClient() {
@@ -117,7 +118,6 @@ public class SPDouyinWebSocketClient extends AbstractWebSocketHandler {
      * 发送心跳包
      */
     private void startHeartbeat(WebSocketSession session) {
-        scheduler = Executors.newScheduledThreadPool(1);
         scheduler.scheduleAtFixedRate(() -> {
             if (session.isOpen()) {
                 try {

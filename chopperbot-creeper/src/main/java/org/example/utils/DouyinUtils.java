@@ -1,11 +1,11 @@
 package org.example.utils;
 
+import org.apache.commons.lang.StringUtils;
 import org.example.constpool.ConstCreeper;
 import org.example.util.HttpClientUtil;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.PolyglotException;
 import org.graalvm.polyglot.Value;
-import org.springframework.http.HttpMethod;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,7 +19,12 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import static org.example.util.ByteDanceUtil.generateMsToken;
+import static org.example.util.ByteDanceUtil.getTtwid;
 
 /**
  * @author wangmin
@@ -155,6 +160,32 @@ public class DouyinUtils {
 //        }
 //    }
 
+    /**
+     * 根据直播间的地址获取到真正的直播间roomId，有时会有错误，可以重试请求解决
+     *
+     * @return room_id
+     */
+    public static String getRoomId(String roomNo) {
+        String url = liveUrl + roomNo;
+        Map<String, String> headers = new HashMap<>();
+        headers.put("User-Agent", ConstCreeper.USER_AGENT);
+        headers.put("Cookie", "ttwid=" + getTtwid() + "&msToken=" + generateMsToken() + "; __ac_nonce" +
+                "=0123407cc00a9e438deb4");
+        String responseBody = HttpClientUtil.get(url, headers);
+        if (StringUtils.isNotBlank(responseBody)) {
+            Pattern pattern = Pattern.compile("roomId\\\\\":\\\\\"(\\d+)\\\\\"");
+            Matcher matcher = pattern.matcher(responseBody);
+
+            if (matcher.find()) {
+                return matcher.group(1);
+            } else {
+                System.out.println("【X】No match found for roomId");
+                return null;
+            }
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         String wss = "wss://webcast100-ws-web-lq.douyin.com/webcast/im/push/v2/?app_name=douyin_web&version_code" +
                 "=180800&webcast_sdk_version=1.0.14-beta.0&update_version_code=1.0.14-beta" +
@@ -170,5 +201,7 @@ public class DouyinUtils {
                 "&insert_task_id=&live_reason=&room_id=284221393020&heartbeatDuration=0";
         String s = generateSignature(wss);
         System.out.println(s);
+
+        System.out.println(getRoomId("730765733998"));
     }
 }

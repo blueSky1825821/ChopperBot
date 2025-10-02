@@ -10,6 +10,7 @@ import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import java.net.URI;
 import java.security.cert.X509Certificate;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -37,13 +38,13 @@ public class WebSocketService {
         // 初始化WebSocket客户端
         webSocketClient = createWebSocketClientWithCustomSSL();
         // 设置系统代理用于抓包（确保本地有代理服务器运行在8888端口）
-//        System.setProperty("https.proxyHost", "127.0.0.1");
-//        System.setProperty("https.proxyPort", "8888");
+        System.setProperty("https.proxyHost", "127.0.0.1");
+        System.setProperty("https.proxyPort", "8888");
 
     }
 
     public void connectToDouyin(String roomId, String uri, WebSocketHttpHeaders headers) {
-        connectionManager = new WebSocketConnectionManager(webSocketClient, douyinWebSocketClient, uri);
+        connectionManager = new WebSocketConnectionManager(webSocketClient, douyinWebSocketClient, URI.create(uri));
         connectionManager.setHeaders(headers);
         try {
             if (!roomIdMap.getOrDefault(roomId, false)) {
