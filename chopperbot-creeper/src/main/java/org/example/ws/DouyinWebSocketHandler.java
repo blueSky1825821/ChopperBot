@@ -2,7 +2,6 @@ package org.example.ws;
 
 import com.google.protobuf.ByteString;
 import lombok.extern.slf4j.Slf4j;
-import org.example.protocol.douyin.Message;
 import org.example.protocol.douyin.PushFrame;
 import org.example.protocol.douyin.Response;
 import org.springframework.web.socket.BinaryMessage;
@@ -13,7 +12,6 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 
 import java.nio.ByteBuffer;
-import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -25,13 +23,13 @@ import java.util.concurrent.TimeUnit;
  * @date 2025/9/21 15:13
  */
 @Slf4j
-public class SPDouyinWebSocketClient extends AbstractWebSocketHandler {
+public class DouyinWebSocketHandler extends AbstractWebSocketHandler {
 
     private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     private DouyinLiveWebFetcher fetcher;
 
-    public SPDouyinWebSocketClient() {
+    public DouyinWebSocketHandler() {
         this.fetcher = new DouyinLiveWebFetcher();
     }
 
@@ -44,10 +42,14 @@ public class SPDouyinWebSocketClient extends AbstractWebSocketHandler {
 
     @Override
     protected void handleBinaryMessage(WebSocketSession session, BinaryMessage message) throws Exception {
-        byte[] payload = message.getPayload().array();
+        ByteBuffer payload = message.getPayload();
         // 处理接收到的二进制消息
-        log.info("收到二进制消息，长度: " + payload.length);
-        processMessage(session, payload);
+        log.info("收到二进制消息，长度: " + payload.remaining());
+
+        // 从ByteBuffer中读取数据
+        byte[] bytes = new byte[payload.remaining()];
+        payload.get(bytes);
+        processMessage(session, bytes);
     }
 
     @Override
@@ -74,7 +76,7 @@ public class SPDouyinWebSocketClient extends AbstractWebSocketHandler {
     /**
      * 处理消息内容
      */
-    private void processMessage(WebSocketSession session, byte[] message) {
+    public static void processMessage(WebSocketSession session, byte[] message) {
         try {
             // 根据proto结构体解析对象
             PushFrame msg = PushFrame.parseFrom(message);
@@ -82,8 +84,9 @@ public class SPDouyinWebSocketClient extends AbstractWebSocketHandler {
                 return;
             }
             // 解压缩payload
-            byte[] decompressedPayload = fetcher.decompressGzip(msg.getPayload().toByteArray());
+            byte[] decompressedPayload = DouyinLiveWebFetcher.decompressGzip(msg.getPayload().toByteArray());
             Response response = Response.parseFrom(decompressedPayload);
+            log.info("【√】收到消息，长度:{} ", response);
 
             // 返回直播间服务器链接存活确认消息，便于持续获取数据
             if (response.getNeedAck()) {
@@ -95,20 +98,20 @@ public class SPDouyinWebSocketClient extends AbstractWebSocketHandler {
                 session.sendMessage(new BinaryMessage(ack.toByteArray()));
             }
 
-            Map<String, DouyinLiveWebFetcher.MessageHandler> messageHandlers = fetcher.getMessageHandlers();
-            // 根据消息类别解析消息体
-            for (Message mess : response.getMessagesListList()) {
-                String method = mess.getMethod();
-                DouyinLiveWebFetcher.MessageHandler handler = messageHandlers.get(method);
-                if (handler != null) {
-                    try {
-                        handler.handle(mess.getPayload().toByteArray());
-                    } catch (Exception e) {
-                        // 忽略处理异常
-                        log.error("处理消息失败: " + method, e);
-                    }
-                }
-            }
+//            Map<String, DouyinLiveWebFetcher2.MessageHandler> messageHandlers = fetcher.getMessageHandlers();
+//            // 根据消息类别解析消息体
+//            for (Message mess : response.getMessagesListList()) {
+//                String method = mess.getMethod();
+//                DouyinLiveWebFetcher2.MessageHandler handler = messageHandlers.get(method);
+//                if (handler != null) {
+//                    try {
+//                        handler.handle(mess.getPayload().toByteArray());
+//                    } catch (Exception e) {
+//                        // 忽略处理异常
+//                        log.error("处理消息失败: " + method, e);
+//                    }
+//                }
+//            }
         } catch (Exception e) {
             log.error("处理WebSocket二进制消息时出错: " + e.getMessage(), e);
         }
@@ -139,7 +142,7 @@ public class SPDouyinWebSocketClient extends AbstractWebSocketHandler {
     /**
      * 将字节数组转换为十六进制字符串（类似抓包显示格式）
      */
-    private String bytesToHex(byte[] bytes) {
+    public static String bytesToHex(byte[] bytes) {
         if (bytes == null || bytes.length == 0) {
             return "";
         }

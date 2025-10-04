@@ -48,7 +48,7 @@ public class DouyinLiveWebFetcher {
      * @param compressedData 压缩的数据
      * @return 解压后的数据
      */
-    public byte[] decompressGzip(byte[] compressedData) {
+    public static byte[] decompressGzip(byte[] compressedData) {
         // 输入验证
         if (compressedData == null || compressedData.length == 0) {
             System.out.println("警告: 输入数据为null或空");

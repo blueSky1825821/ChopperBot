@@ -3,15 +3,10 @@ package org.example.ws;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.WebSocketHttpHeaders;
-import org.springframework.web.socket.client.WebSocketClient;
 import org.springframework.web.socket.client.WebSocketConnectionManager;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 import java.net.URI;
-import java.security.cert.X509Certificate;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
@@ -28,24 +23,23 @@ import java.util.concurrent.TimeUnit;
 public class WebSocketService {
     private static final Map<String, Boolean> roomIdMap = new ConcurrentHashMap<>();
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    private WebSocketClient webSocketClient;
-    private SPDouyinWebSocketClient douyinWebSocketClient;
+    private StandardWebSocketClient webSocketClient;
+    private DouyinWebSocketHandler webSocketHandler;
     private WebSocketConnectionManager connectionManager;
 
     @PostConstruct
     public void init() {
-        douyinWebSocketClient = new SPDouyinWebSocketClient();
+        webSocketHandler = new DouyinWebSocketHandler();
         // 初始化WebSocket客户端
-        webSocketClient = createWebSocketClientWithCustomSSL();
-        // 设置系统代理用于抓包（确保本地有代理服务器运行在8888端口）
-        System.setProperty("https.proxyHost", "127.0.0.1");
-        System.setProperty("https.proxyPort", "8888");
+        webSocketClient = new StandardWebSocketClient();
+        webSocketClient.setSslContext(SSLConfig.getOrCreateSSLContext());
 
     }
 
     public void connectToDouyin(String roomId, String uri, WebSocketHttpHeaders headers) {
-        connectionManager = new WebSocketConnectionManager(webSocketClient, douyinWebSocketClient, URI.create(uri));
+        connectionManager = new WebSocketConnectionManager(webSocketClient, webSocketHandler, URI.create(uri));
         connectionManager.setHeaders(headers);
+        connectionManager.setOrigin("https://webcast100-ws-web-lf.douyin.com");
         try {
             if (!roomIdMap.getOrDefault(roomId, false)) {
                 this.connectionManager.start();
@@ -77,61 +71,5 @@ public class WebSocketService {
         connectToDouyin(roomId, uri, headers);
     }
 
-    /**
-     * 创建支持自定义SSL的WebSocket客户端
-     */
-    private WebSocketClient createWebSocketClientWithCustomSSL() {
-        try {
-            StandardWebSocketClient client = new StandardWebSocketClient();
-            // 设置SSL上下文
-            client.getUserProperties().put("org.apache.tomcat.websocket.SSL_CONTEXT", getOrCreateSSLContext());
-            return client;
-        } catch (Exception e) {
-            throw new RuntimeException("创建WebSocket客户端失败", e);
-        }
-    }
 
-    // 缓存SSLContext实例以提高性能
-    private static volatile SSLContext cachedSSLContext = null;
-    private static final Object sslContextLock = new Object();
-
-    /**
-     * 获取或创建SSL上下文（带缓存）
-     */
-    private SSLContext getOrCreateSSLContext() throws Exception {
-        if (cachedSSLContext == null) {
-            synchronized (sslContextLock) {
-                if (cachedSSLContext == null) {
-                    cachedSSLContext = createTrustAllSSLContext();
-                }
-            }
-        }
-        return cachedSSLContext;
-    }
-
-    /**
-     * 创建信任所有证书的SSL上下文
-     */
-    private SSLContext createTrustAllSSLContext() throws Exception {
-        // 使用更安全的TLS协议版本
-        SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
-        TrustManager[] trustAllCerts = new TrustManager[]{
-                new X509TrustManager() {
-                    public X509Certificate[] getAcceptedIssuers() {
-                        return new X509Certificate[0];
-                    }
-
-                    public void checkClientTrusted(X509Certificate[] certs, String authType) {
-                        // 可以添加客户端证书验证逻辑
-                    }
-
-                    public void checkServerTrusted(X509Certificate[] certs, String authType) {
-                        // 可以添加服务器证书验证逻辑
-                        // 例如：验证证书颁发者、有效期等
-                    }
-                }
-        };
-        sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
-        return sslContext;
-    }
 }
